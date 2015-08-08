@@ -1,6 +1,6 @@
 # style-check-html
-A patch that allows users to print reports from style-check.rb in HTML format.
-This repository contains only the patch since the original software is available in another website (http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
+This repository contains a patch that allows users to print reports from style-check.rb in HTML format.
+It contains only the patch since the original software is available in another website (http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
 The option "-w" to write the output in HTML format is the only difference in the command line.
 
 Downloading the code and patching it:
