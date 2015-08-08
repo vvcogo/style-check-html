@@ -15,8 +15,17 @@ patch style-check.rb < ../style-check-0.14.patch
 Testing the new code:
 ```
 ruby style-check.rb -w test-dirty.tex > test-dirty.html
+```
+
+Open the resulting HTML file in your Web browser:
+```
 firefox test-dirty.html
 ```
+
+The report contains a header with checkboxes and the number of suggestions being presented from the total.
+Deselecting the checkbox for some category will remove the suggestions from this category from the view.
+The entry for each suggestion contains the file where the suggestion was found, the original sentence, the reason it was issued, a possible solution, and the pattern triggering the suggestion.
+Additionally, one may remove one entry at time by clicking on the "X" button at the right-side as it is corrected in the text.
 
 User- or system-wide installation is still available in the original style-check's website (http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
 
