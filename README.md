@@ -27,6 +27,6 @@ Deselecting the checkbox for some category will remove the suggestions from this
 The entry for each suggestion contains the file where the suggestion was found, the original sentence, the reason it was issued, a possible solution, and the pattern triggering the suggestion.
 Additionally, one may remove one entry at time by clicking on the "X" button at the right-side as it is corrected in the text.
 
-User- or system-wide installation is still available in the original style-check's website (http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
+The step-by-step tutorial on how to install the style-check.rb tool system-wide is still available in the original style-check's website (http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
 
 
