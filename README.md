@@ -1,7 +1,7 @@
 # style-check-html
-This repository contains a patch that allows users to print reports from style-check.rb in HTML format.
-It contains only the patch since the original software is available in another website (http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
-The option "-w" to write the output in HTML format is the only difference in the command line.
+The style-check-html tool is a patch for the [style-check.rb](http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
+The original [style-check.rb](http://www.cs.umd.edu/~nspring/software/style-check-readme.html) tool identifies common writing mistakes in LaTeX files and suggests possible corrections.
+This patch only modifies the code that displays these suggestions to the user. Instead of obtaining the output in text-mode, users have now the "-w" option to receive the output in HTML format.
 
 Downloading the code and patching it:
 ```
