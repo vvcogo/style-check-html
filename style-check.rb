@@ -26,6 +26,10 @@
 # explanation.  (the behavior of the script does not currently
 # depend on this syntax.  someday it may.)
 
+# This is a modified version of style-check.rb to allow users 
+# to see its output in HTML format. For additional information 
+# on this patch please contact Vinicius Cogo
+
 # Bugs 
 
 # - misspelled words may not be recognized if capitalized.
