@@ -26,10 +26,6 @@
 # explanation.  (the behavior of the script does not currently
 # depend on this syntax.  someday it may.)
 
-# This is a modified version of style-check.rb to allow users 
-# to see its output in HTML format. For additional information 
-# on this patch please contact Vinicius Cogo
-
 # Bugs 
 
 # - misspelled words may not be recognized if capitalized.
@@ -110,6 +106,8 @@ PathList.map { |rulefilename|
               Regexp.new('\b' + expression.chomp.gsub(/ +/, '\s+').gsub(/([a-zA-Z\)])$/, '\1\b'), Regexp::IGNORECASE ) 
             when 'spelling' 
               Regexp.new('\b' + expression.chomp + '\b', Regexp::IGNORECASE ) 
+            when 'misc'
+              Regexp.new('\b' + expression.chomp + '\b' ) 
             when 'ignoredcommand'
               ignoredCommands.push(expression.chomp)
               nil
@@ -210,7 +208,7 @@ Input_files.delete_if { |f|
   end  
 }
 if($WEB) then
-	puts "<html>\n<head>\n<title>style_checker.rb</title>\n</head>\n<style>\nform{width:100%; text-align:center;font-size:10pt;}\ninput{vertical-align:bottom;margin-left:30px;}\ntable { width:95%; border-collapse: collapse; font-size:10pt; margin:10px 2.5%}\n.spelling th, #mySpelling{background-color:#FFC1C1;}\n.capitalize th, #myCapitalize{background-color:#FFF7C1;}\n.syntax th, #mySyntax{background-color:#C1E0FF;}\n.phrase th, #myPhrase{background-color:#C1FFD1;}\n#myUndefined{margin-left:30px;background-color: #eee;}\ntable, th, td { border: 1px solid black; padding: 5px;}\ntr{ width:100%}\ndiv{display:inline;}th{ text-align:left; width: 10%; background-color: #eee;}\ntd{ width:90%;}\n#myTotal{width:100%;margin-left:15px;font-size:10pt;}\ntable button{float:right; font-size:8pt; border: 1px solid black;width:15px;padding:0 1px 0 1px;text-align:center;}\np{ font-size: 10pt; text-align: center;}\n</style>\n<body><form id=\"aform\"><input type=\"checkbox\" id=\"inSpelling\" name=\"type\" value=\"spelling\" checked=\"checked\"><div id=\"mySpelling\">Spelling</div><input type=\"checkbox\" id=\"inCapitalize\" name=\"type\" value=\"capitalize\" checked=\"checked\"><div id=\"myCapitalize\">Capitalize</div><input type=\"checkbox\" id=\"inSyntax\" name=\"type\" value=\"syntax\" checked=\"checked\"><div id=\"mySyntax\">Syntax</div><input type=\"checkbox\" id=\"inPhrase\" name=\"type\" value=\"phrase\" checked=\"checked\"><div id=\"myPhrase\">Phrase</div><div id=\"myUndefined\">Undefined</div><br /><br /><div id=\"myTotal\"></div></form>"
+	puts "<html>\n<head>\n<title>style_checker.rb</title>\n</head>\n<style>\nform{width:100%; text-align:center;font-size:10pt;}\ninput{vertical-align:bottom;margin-left:30px;}\ntable { width:95%; border-collapse: collapse; font-size:10pt; margin:10px 2.5%}\n.spelling th, #mySpelling{background-color:#FFC1C1;}\n.capitalize th, #myCapitalize{background-color:#FFF7C1;}\n.syntax th, #mySyntax{background-color:#C1E0FF;}\n.phrase th, #myPhrase{background-color:#C1FFD1;}\n.misc th, #myMisc{background-color:#FFE5C1;}\n#myUndefined{margin-left:30px;background-color: #eee;}\ntable, th, td { border: 1px solid black; padding: 5px;}\ntr{ width:100%}\ndiv{display:inline;}th{ text-align:left; width: 10%; background-color: #eee;}\ntd{ width:90%;}\n#myTotal{width:100%;margin-left:15px;font-size:10pt;}\ntable button{float:right; font-size:8pt; border: 1px solid black;width:15px;padding:0 1px 0 1px;text-align:center;}\np{ font-size: 10pt; text-align: center;}\n</style>\n<body><form id=\"aform\"><input type=\"checkbox\" id=\"inSpelling\" name=\"type\" value=\"spelling\" checked=\"checked\"><div id=\"mySpelling\">Spelling</div><input type=\"checkbox\" id=\"inCapitalize\" name=\"type\" value=\"capitalize\" checked=\"checked\"><div id=\"myCapitalize\">Capitalize</div><input type=\"checkbox\" id=\"inSyntax\" name=\"type\" value=\"syntax\" checked=\"checked\"><div id=\"mySyntax\">Syntax</div><input type=\"checkbox\" id=\"inPhrase\" name=\"type\" value=\"phrase\" checked=\"checked\"><div id=\"myPhrase\">Phrase</div><input type=\"checkbox\" id=\"inMisc\" name=\"type\" value=\"misc\" checked=\"checked\"><div id=\"myMisc\">Misc</div><div id=\"myUndefined\">Undefined</div><br /><br /><div id=\"myTotal\"></div></form>"
 end
 Input_files.each { |f|
 if($WEB) then
@@ -292,6 +290,7 @@ $('#aform').on
 				case 'syntax':  $(\".syntax\").show(); break;
 				case 'capitalize':  $(\".capitalize\").show(); break;
 				case 'spelling':  $(\".spelling\").show(); break;
+				case 'misc':  $(\".misc\").show(); break;
 				case 'undefined': $(\".undefined\").show(); break;
 			}
 		} else {
@@ -300,6 +299,7 @@ $('#aform').on
 				case 'syntax':  $(\".syntax\").hide(); break;
 				case 'capitalize':  $(\".capitalize\").hide(); break;
 				case 'spelling':  $(\".spelling\").hide(); break;
+				case 'misc':  $(\".misc\").hide(); break;
 				case 'undefined': $(\".undefined\").hide(); break;
 			}
 		}
@@ -320,12 +320,16 @@ function updateCounters(){
 	$(\"#myPhrase\").html( \"Phrase \(\" + $(\".phrase\").length+\")\"); 
 	$(\"#mySyntax\").html( \"Syntax \(\" + $(\".syntax\").length+\")\"); 
 	$(\"#myCapitalize\").html( \"Capitalize \(\" + $(\".capitalize\").length+\")\"); 
-	$(\"#mySpelling\").html( \"Spelling \(\" + $(\".spelling\").length+\")\");	
+	$(\"#mySpelling\").html( \"Spelling \(\" + $(\".spelling\").length+\")\");
+	$(\"#myMisc\").html( \"Misc \(\" + $(\".misc\").length+\")\");		
 	$(\"#myTotal\").html( \"Presenting \" + countVisible() +\" suggestions out of \"+$('table').length + \" identified \");	
 }
 
 function countVisible() {
 	aCount=0;
+	if($('#inMisc').is(':checked')){
+		aCount=aCount+$('.misc').length;
+	}
 	if($('#inSpelling').is(':checked')){
 		aCount=aCount+$('.spelling').length;
 	}
