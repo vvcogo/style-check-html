@@ -7,7 +7,7 @@ This patch only modifies the code that displays these suggestions to the user. I
 The installation process is exactly the same as the original tool. Execute the following commands to obtain it: 
 ```
 wget https://github.com/vvcogo/style-check-html/releases/download/v0.14-2/style-check-html-0.14-2.tar.gz
-tar -zxvf style-check-html-0.14.tar.gz
+tar -zxvf style-check-html-0.14-2.tar.gz 
 ```
 And the following to install it system-wide:
 ```
