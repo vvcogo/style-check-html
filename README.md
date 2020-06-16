@@ -1,5 +1,5 @@
 # style-check-html
-The style-check-html tool is a patch for the [style-check.rb](http://www.cs.umd.edu/~nspring/software/style-check-readme.html).
+The style-check-html tool is a patch for the [style-check.rb](https://github.com/nspring/style-check).
 
 The original [style-check.rb](http://www.cs.umd.edu/~nspring/software/style-check-readme.html) tool identifies common writing mistakes in LaTeX files and suggests possible corrections.
 This patch only modifies the code that displays these suggestions to the user. Instead of obtaining the output in text-mode, users have now the "-w" option to receive the output in HTML format.
